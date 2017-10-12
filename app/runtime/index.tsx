@@ -5,7 +5,8 @@ import { reactMarionetteWrapper } from '../sandbox-specific/adapter/backboneHelp
 import { getId } from '../sandbox-specific/constants';
 import { render } from '../sandbox-specific/adapter/reactHelpers/index';
 import * as React from 'react';
-import ExtendedTransactionDetail from '../containers/extendedTransactionDetail/index';
+import ExtendedTransactionDetail from '../components/extendedTransactionDetail/index';
+
 
 export function pluginInitialized() {
 

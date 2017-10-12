@@ -44,8 +44,13 @@ exports.config = {
     // 5 instance gets started at a time.
     maxInstances: 5,
     //
-    browserName: 'phantomjs', // options: chrome || firefox || phantomjs
+    // browserName: 'phantomjs', // options: chrome || firefox || phantomjs
+    browserName: 'chrome', // options: chrome || firefox || phantomjs
     acceptSslCerts: true,
+
+    webSecurity: false,
+    // ignoreSslErrors: true,
+    // sslProtocol: 'any'
 
     'phantomjs.cli.args': [
       // '--debug=yes',
@@ -111,11 +116,21 @@ exports.config = {
   // Services take over a specific job you don't want to take care of. They enhance
   // your test setup with almost no effort. Unlike plugins, they don't add new
   // commands. Instead, they hook themselves up into the test process.
-  services: ['phantomjs'],//
+  // services: ['phantomjs'],//
+  services: ['selenium-standalone'],//
 
   phantomjsOpts: {
     webdriverLogfile: 'phantomjs.log',
-    ignoreSslErrors: true
+    webdriverLoglevel: 'DEBUG',
+
+
+    ignoreSslErrors: true,
+    debug: true,
+    sslProtocol: 'any',
+    webSecurity: false,
+
+    // acceptSslCerts: true
+    // browserConnectionEnabled: true
   },
 
   // Framework you want to run your specs with.

@@ -26,64 +26,55 @@ describe('try plugin', () => {
 
       const screenshotNamePrefix = 'happyDay';
 
-      const foodBoxId = getId('FOOD');
-      const withdrawalId = getId('WITHDRAWAL');
 
       browser.url('https://localhost:8080');
+
+      browser.pause(5000);
 
       saveScreenshot(screenshotNamePrefix);
 
       browser.waitForExist('input.enable-plugin');
+      browser.waitForExist('button.btn.login-user-pass');
+
+      // saveScreenshot(screenshotNamePrefix);
+      //
+      // browser.element('input.enable-plugin').click();
+
+      browser.element('input.disposer-input').setValue('304844216');
 
       saveScreenshot(screenshotNamePrefix);
 
-      browser.element('input.enable-plugin').click();
-
-      saveScreenshot(screenshotNamePrefix);
-
-      browser.element('button.btn.login').click();
+      browser.element('button.btn.login-user-pass').click();
 
       saveScreenshot(screenshotNamePrefix);
 
       // wait till load
       browser.waitForExist('#pageContainer', 70 * 1000);
-      browser.waitForVisible('#accountName', 70 * 1000);
-
-      browser.pause(5000);
-
-      saveScreenshot(screenshotNamePrefix);
-
-      const food = browser.element(`#${foodBoxId}`);
-      expect(food.isExisting());
-
-      // navigate to food transaction page
-      food.element(".footer-link").click();
-
-      browser.waitForVisible('.transaction-line', 60 * 1000);
-
-      browser.pause(5000);
-
-
-      saveScreenshot(screenshotNamePrefix);
-
-      // go back
-
-      browser.back();
-
-      const withdrawal = browser.element(`#${withdrawalId}`);
-
-      expect(withdrawal.isExisting());
-
-      // navigate to withdrawal transaction page
+      browser.waitForExist('#accountName', 70 * 1000);
 
       browser.pause(5000);
 
       saveScreenshot(screenshotNamePrefix);
 
 
-      withdrawal.element(".footer-link").click();
+      // navigates to account transactions
+      browser.element('#accountName').click();
 
-      browser.waitForExist('.transaction-line', 4 * 1000);
+      saveScreenshot(screenshotNamePrefix);
+
+      browser.waitForExist('.clickOnMe');
+
+      saveScreenshot();
+
+      // show modal
+      browser.element('.clickOnMe').click();
+
+      saveScreenshot(screenshotNamePrefix);
+
+      // wait for modal
+      browser.waitForExist('.modal-dialog');
+
+      browser.pause(500);
 
       saveScreenshot(screenshotNamePrefix);
 
