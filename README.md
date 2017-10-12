@@ -1,5 +1,7 @@
 # george-plugin-3
 
+npm i phantomjs -g 
+
 npm install
 
 npm run build:sandbox
@@ -11,3 +13,7 @@ npm run test:e2e
 - after build:sandbox, with running sandbox
 
 
+check
+/sandbox-specific/index.tsx - pluginInitialized() function is called
+/runtime/index.tsx - hook and hook handler is here
+/components/extendedTransactionDetail/index.tsx - sample ExtendedTransaction SFC

@@ -1,0 +1,18 @@
+# Don't check auto-generated stuff into git
+coverage
+build
+dist
+node_modules
+stats.json
+errorShots
+
+
+# Cruft
+.DS_Store
+npm-debug.log
+.idea
+george-plugin-3.iml
+app/tests/wdio/_screenshots/
+!app/tests/wdio/_screenshots/.placeholder
+
+cache/

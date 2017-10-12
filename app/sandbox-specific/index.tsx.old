@@ -1,0 +1,139 @@
+import * as React from 'react';
+import {
+  Component,
+  CSSProperties
+} from 'react';
+import {
+  getCategoryDetails,
+  getCategoryTransactions
+} from '../apiClient';
+import {
+  CategoryDetail,
+  Transaction
+} from '../apiClient/dtos';
+
+const transactionCategory = 'FOOD';
+
+// const transactionCategory = 'WITHDRAWAL';
+
+interface State {
+
+  categoryDetails: {[id:string]:CategoryDetail};
+
+  transactions: Transaction[];
+
+}
+
+interface Properties {
+
+}
+
+export default class DashboardCard extends Component<Properties, State> {
+
+  constructor(props) {
+
+    super(props);
+
+    this.setState(
+      {
+        categoryDetails: {},
+
+        transactions: []
+
+      });
+
+    getCategoryDetails(transactionCategory)
+      .then(categoryDetails => {
+
+        this.setState((prevState, props) => {
+
+          return { ...prevState }.categoryDetails = categoryDetails;
+
+        })
+
+      });
+
+    getCategoryTransactions(transactionCategory)
+      .then(transactions => {
+        this.setState((prevState, props) => {
+
+          return { ...prevState }.transactions = transactions.collection;
+
+        })
+      });
+
+  }
+
+  render() {
+
+
+    ///<span class="balance true">€ 3.000<span class="cents">,00</span></span>
+
+    const getImg = (item) => {
+
+      if (item.logo.id) {
+        return <img src={item.logo.uri}/>
+      } else {
+
+        const className = item.logo.uri.split(':')[1];
+
+
+        return (<svg className={className}>
+
+          <use xlinkHref={'#' + className}></use>
+
+        </svg>);
+
+      }
+
+    };
+
+    const innerCardStyle: CSSProperties = {
+      overflow: 'auto'
+    };
+
+    return (
+      <div
+        className="overview-block box-saveable box-bottom-btn box-groupable box-canbegrouped box-canbemain box-size-md ui-widget ui-helper-clearfix">
+        <div className="displaycard smallbox topbar COLOR_8-bar">
+
+          <div className="innerCard" style={innerCardStyle}>
+            <div className="displayinner nameblock showNegative">
+              <div className="clearfix showNegative">
+                <div>
+                  <div className="label-sm truncate"> selected category: {transactionCategory} </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="paddedcontainer summarycontainer box-visible-md box-visible-lg">
+
+              {
+                this.state.transactions.map((item) => {
+                  return <div> {getImg(item)} {item.amount.value} </div>;
+                })
+
+              }
+
+            </div>
+            <div className="displayinner bottomButton box-visible-md box-visible-lg">
+              <a className="nobubble btn btn-block btn-lg btn-light actionBtn">
+                Total {
+
+                Object.keys(this.state.categoryDetails).map(key => {
+                  const item = this.state.categoryDetails[key];
+
+                  return <div> {key}: {item.value} </div>;
+                })
+              }
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    );
+  }
+
+}
+
